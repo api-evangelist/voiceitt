@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: REST Auth API
+  description: ''
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Auth
+paths:
+  /v1/auth/login/user_id:
+    post:
+      operationId: PublicApiController_loginUserId
+      summary: Authenticate app using App ID and API key
+      description: Verifies the provided App ID and API key. Optionally accepts a user ID to authenticate a specific user under that app.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInUserIdDTO'
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseDTO'
+        '403':
+          description: Invalid App ID or API key
+      tags:
+      - Auth
+      security:
+      - bearer: []
+  /v1/auth/login/email:
+    post:
+      operationId: PublicApiController_loginEmail
+      summary: Authenticate app using App ID API key and existing credentials
+      description: Verifies the provided App ID, API key and credentials.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInEmailDTO'
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseDTO'
+        '403':
+          description: Invalid App ID, API key or credentials
+      tags:
+      - Auth
+      security:
+      - bearer: []
+  /v1/auth/refresh_token:
+    post:
+      operationId: PublicApiController_refreshToken
+      summary: Refresh authentication token
+      description: Exchanges a valid refresh token for new tokens.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenDTO'
+      responses:
+        '200':
+          description: Refresh token succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseDTO'
+        '403':
+          description: Invalid App ID or API key
+      tags:
+      - Auth
+      security:
+      - bearer: []
+components:
+  schemas:
+    SignInEmailDTO:
+      type: object
+      properties:
+        app_id:
+          type: string
+          description: Application ID, typically obtained from the developer portal
+        api_key:
+          type: string
+          description: API key, typically obtained from the developer portal
+        email:
+          type: string
+        password:
+          type: string
+      required:
+      - app_id
+      - api_key
+      - email
+      - password
+    SignInUserIdDTO:
+      type: object
+      properties:
+        app_id:
+          type: string
+          description: Application ID, typically obtained from the developer portal
+        api_key:
+          type: string
+          description: API key, typically obtained from the developer portal
+        user_id:
+          type: string
+          maxLength: 36
+      required:
+      - app_id
+      - api_key
+    RefreshTokenDTO:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+      required:
+      - refresh_token
+    AuthResponseDTO:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT or access token issued upon successful authentication
+        token_expires_at:
+          type: number
+          description: Expiration timestamp of the access token in milliseconds since Unix epoch
+        refresh_token:
+          type: string
+          description: Refresh token used to obtain a new tokens
+        refresh_token_expires_at:
+          type: number
+          description: Expiration timestamp of the refresh token in milliseconds since Unix epoch
+      required:
+      - token
+      - token_expires_at
+      - refresh_token
+      - refresh_token_expires_at
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http

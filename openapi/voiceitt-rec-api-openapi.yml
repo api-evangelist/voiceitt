@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: REST Auth Rec API
+  description: ''
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Rec
+paths:
+  /v1/rec/transcribe:
+    post:
+      operationId: PublicApiController_transcribe
+      summary: Transcribe audio file
+      description: Accepts audio file along with transcription options in JSON format. The server processes the audio and returns a transcription result
+      parameters: []
+      requestBody:
+        required: true
+        description: Multipart form-data including options JSON file and audio file
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: string
+                  format: binary
+                  description: "JSON file containing transcription options. Example: \n          {\n            run_itn: true,\n            run_capitalization: true,\n            run_spoken_command_conversion: false,\n            filter_profanities: true,\n            save_audio: false\n          }"
+                audio:
+                  type: string
+                  format: binary
+                  description: Audio file to be transcribed
+              required:
+              - audio
+              - options
+      responses:
+        '200':
+          description: Transcribed result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscribeResponseDTO'
+      tags:
+      - Rec
+      security:
+      - bearer: []
+components:
+  schemas:
+    TranscribeResponseDTO:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+      - text
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
