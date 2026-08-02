@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: https://voiceitt-si-api.readme.io/
+description: >-
+  Lifecycle posture searched across the Voiceitt docs and site on 2026-07-21.
+  The API is versioned in the URI path (v1); the ReadMe docs site lists a
+  single version (v1.0) and publishes no changelog (/changelog is 404). No
+  public status page, SLA, deprecation policy, or Sunset/Deprecation header
+  support was found — absence recorded as valid data.
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://voiceitt-si-api.readme.io/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No deprecation policy published; no deprecated operations declared in the OpenAPI.
+sla:
+  url: null
+status_page: null
+changelog: null
+deprecated_operations: []

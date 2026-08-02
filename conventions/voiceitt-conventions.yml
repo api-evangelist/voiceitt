@@ -1,0 +1,87 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://voiceitt-si-api.readme.io/ — the cross-cutting request/response
+  semantics documented in the Voiceitt HTTP and WebSockets getting-started
+  guides, plus what the harvested OpenAPI declares.
+description: >-
+  How the Voiceitt API behaves across operations: JWT session authentication
+  with refresh rotation, multipart transcription requests with a JSON options
+  file, Socket.IO event streaming with partial/final recognition results, and
+  strict PCM audio input requirements. The surface is small (auth +
+  transcription) — there is no pagination, no idempotency-key mechanism, and
+  no documented rate-limit signaling.
+base_url: https://api2.voiceitt.com
+websocket_url: https://web.voiceitt.com/socket.io
+api_style: REST over HTTPS (multipart/form-data + JSON) plus Socket.IO WebSockets streaming
+
+authentication:
+  scheme: Bearer JWT obtained via App ID + API key login; refresh-token rotation
+  modes:
+    speaker_independent: POST /v1/auth/login/user_id (App ID + API key, optional user_id)
+    personalized: POST /v1/auth/login/email (end user enrolled at https://web.voiceitt.com/)
+  detail: authentication/voiceitt-authentication.yml
+
+idempotency:
+  supported: false
+  notes: No idempotency-key header or replay semantics documented.
+
+pagination:
+  style: none
+  notes: No list endpoints in the public API surface.
+
+request_options:
+  mechanism: >-
+    Transcription behavior is controlled by an options JSON document —
+    uploaded as the options part of the multipart /v1/rec/transcribe request,
+    or sent via the set_options WebSocket event (repeatable at any time after
+    connecting).
+  fields:
+  - name: run_itn
+    type: boolean
+    description: Inverse text normalization of the transcript.
+  - name: run_capitalization
+    type: boolean
+    description: Capitalization processing.
+  - name: run_spoken_command_conversion
+    type: boolean
+    description: Spoken command / punctuation conversion.
+  - name: filter_profanities
+    type: boolean
+    description: Profanity filtering.
+  - name: save_audio
+    type: boolean
+    description: Whether the server retains the uploaded audio (HTTP transcribe options example).
+  - name: streaming_vad_min_silence_length
+    type: float
+    description: Silence duration required for a streaming speech segment to be considered complete (WebSockets).
+
+audio_input:
+  pcm:
+    channels: 1
+    sample_rate_hz: 16000
+    sample_types: [int16, int32, float32, float64]
+    recommended_chunk: 3200 samples per stream_audio_samples message
+  compressed:
+    formats: [mp4, ogg]
+    notes: Sent via stream_compressed_audio with a MIME type; MediaRecorder recommended in browsers for lower distortion.
+
+request_tracing:
+  mechanism: request_id
+  notes: >-
+    recognize_audio_samples replies immediately with a request_received event
+    carrying request_id; errors reference the same request_id.
+
+versioning:
+  scheme: uri-path
+  current: v1
+  detail: lifecycle/voiceitt-lifecycle.yml
+
+error_envelope:
+  http: Status codes with plain descriptions (e.g. 403 Invalid App ID or API key); no application/problem+json.
+  websocket: error event with message and optional request_id.
+  detail: errors/voiceitt-problem-types.yml
+
+rate_limits:
+  documented: false
+  notes: No rate-limit headers or quotas documented in the public docs.

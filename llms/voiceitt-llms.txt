@@ -1,0 +1,19 @@
+# Voiceitt API Documentation
+
+> Voiceitt API for non-standard speech-to-text.
+
+## API Reference
+- [Getting Started With the Voiceitt HTTP API](https://voiceitt-si-api.readme.io/reference/getting-started-with-the-voiceitt-rest-api-copy.md)
+- [Authenticate app using App ID and API key](https://voiceitt-si-api.readme.io/reference/publicapicontroller_loginuserid.md): Verifies the provided App ID and API key. Optionally accepts a user ID to authenticate a specific user under that app.
+- [Authenticate app using App ID API key and existing credentials](https://voiceitt-si-api.readme.io/reference/publicapicontroller_loginemail.md): Verifies the provided App ID, API key and credentials.
+- [Refresh authentication token](https://voiceitt-si-api.readme.io/reference/publicapicontroller_refreshtoken-1.md): Exchanges a valid refresh token for new tokens.
+- [Transcribe audio file](https://voiceitt-si-api.readme.io/reference/publicapicontroller_transcribe-1.md): Accepts audio file along with transcription options in JSON format. The server processes the audio and returns a transcription result
+- [Inverse text normalization](https://voiceitt-si-api.readme.io/reference/inverse-text-normalization.md)
+- [Spoken punctuation](https://voiceitt-si-api.readme.io/reference/spoken-punctuation.md)
+- [Getting Started With Voiceitt WebSockets API](https://voiceitt-si-api.readme.io/reference/getting-started-with-your-api-1.md)
+- [set_options](https://voiceitt-si-api.readme.io/reference/set_options.md): Configure a recognition session
+- [refresh_token](https://voiceitt-si-api.readme.io/reference/refresh_token.md): Refresh authentication token
+- [disconnect_request](https://voiceitt-si-api.readme.io/reference/disconnect_request.md): Request to close user session
+- [recognize_audio_samples](https://voiceitt-si-api.readme.io/reference/recognize_audio_samples.md): Transcribe pre-segmented speech
+- [stream_audio_samples](https://voiceitt-si-api.readme.io/reference/stream_audio_samples.md): Transcribe contiguous chunks of PCM-format audio
+- [stream_compressed_audio](https://voiceitt-si-api.readme.io/reference/stream_compressed_audio.md): Transcribe contiguous chunks of non PCM format audio

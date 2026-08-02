@@ -1,20 +1,92 @@
 aid: voiceitt
-name: voiceitt
-description: voiceitt is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: Voiceitt
+description: >-
+  Voiceitt builds inclusive voice AI — automatic speech recognition designed for
+  people with non-standard speech, including speech disabilities, aging adults,
+  and accented speakers. Its speaker-independent and personalized speech-to-text
+  power an AAC/dictation app, live captioning integrations for Zoom, Microsoft
+  Teams, and WebEx, a Chrome extension, and Alexa smart-home control. Developers
+  integrate the same engine through the Voiceitt HTTP API (JWT-authenticated
+  audio-file transcription at api2.voiceitt.com) and a Socket.IO WebSockets API
+  for real-time streaming recognition with partial results.
 url: https://raw.githubusercontent.com/api-evangelist/voiceitt/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profile
+x-tier-reason: enriched-provider-with-public-api
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+image: https://cdn.prod.website-files.com/64bcd35b2013e5d1f0557e8c/64bce732fa9c2b4c2df390a5_voiceittLogo.svg
 tags:
+- Speech Recognition
+- Speech-to-Text
+- Voice
+- Accessibility
+- Assistive Technology
+- Artificial Intelligence
+- Transcription
+- Captioning
 - Company
-apis: []
+apis:
+- name: Voiceitt WebSockets API
+  description: >-
+    Socket.IO WebSockets API for real-time speech recognition. After JWT login via the HTTP API, clients
+    set recognition options (set_options), then send recognize_audio_samples for pre-segmented speech
+    or stream_audio_samples / stream_compressed_audio for continuous PCM (16 kHz mono) or compressed audio,
+    receiving chronologically ordered recognition and partial_recognition events with segment timing.
+  humanURL: https://voiceitt-si-api.readme.io/reference/getting-started-with-your-api-1
+  baseURL: https://web.voiceitt.com/socket.io
+  tags:
+  - Speech-to-Text
+  - Streaming
+  - Real-Time
+  properties:
+  - type: Documentation
+    url: https://voiceitt-si-api.readme.io/reference/getting-started-with-your-api-1
+  - type: AsyncAPI
+    url: asyncapi/voiceitt-websockets-asyncapi.yml
+  aid: voiceitt:voiceitt-websockets-api
+- aid: voiceitt:voiceitt-auth-api
+  name: Voiceitt Auth API
+  description: The Auth API from Voiceitt — 3 operation(s) for auth.
+  humanURL: https://voiceitt-si-api.readme.io/
+  baseURL: https://api2.voiceitt.com
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/voiceitt-auth-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://voiceitt-si-api.readme.io/reference/getting-started-with-the-voiceitt-rest-api-copy
+- aid: voiceitt:voiceitt-rec-api
+  name: Voiceitt Rec API
+  description: The Rec API from Voiceitt — 1 operation(s) for rec.
+  humanURL: https://voiceitt-si-api.readme.io/
+  baseURL: https://api2.voiceitt.com
+  tags:
+  - Rec
+  properties:
+  - type: OpenAPI
+    url: openapi/voiceitt-rec-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://voiceitt-si-api.readme.io/reference/getting-started-with-the-voiceitt-rest-api-copy
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,3 +95,56 @@ maintainers:
 common:
 - type: Website
   url: https://voiceitt.com/
+- type: DeveloperPortal
+  url: https://developer.voiceitt.com/
+- type: Documentation
+  url: https://voiceitt-si-api.readme.io/
+- type: APIReference
+  url: https://voiceitt-si-api.readme.io/reference
+- type: GettingStarted
+  url: https://voiceitt-si-api.readme.io/reference/getting-started-with-the-voiceitt-rest-api-copy
+- type: Support
+  url: https://www.voiceitt.com/faq
+- type: Pricing
+  url: https://www.voiceitt.com/faq
+- type: SignUp
+  url: https://web.voiceitt.com/
+- type: TermsOfService
+  url: https://www.voiceitt.com/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.voiceitt.com/legal/privacy
+- type: LinkedIn
+  url: https://www.linkedin.com/company/voiceitt
+- type: LLMsTxt
+  url: llms/voiceitt-llms.txt
+- type: Authentication
+  url: authentication/voiceitt-authentication.yml
+- type: WellKnown
+  url: well-known/voiceitt-well-known.yml
+- type: MCPServer
+  url: mcp/voiceitt-mcp.yml
+- type: Overlay
+  url: overlays/voiceitt-rest-api-overlay.yaml
+- type: Conformance
+  url: conformance/voiceitt-conformance.yml
+- type: Compliance
+  url: https://www.voiceitt.com/
+- type: ErrorCatalog
+  url: errors/voiceitt-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/voiceitt-lifecycle.yml
+- type: Conventions
+  url: conventions/voiceitt-conventions.yml
+- type: DataModel
+  url: data-model/voiceitt-data-model.yml
+- type: AsyncAPI
+  url: asyncapi/voiceitt-websockets-asyncapi.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/voiceitt-domain-security.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v1

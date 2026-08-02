@@ -1,0 +1,36 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/voiceitt-rest-api-openapi-original.json
+format: plain
+description: >-
+  Error catalog derived from the 4xx responses declared in the Voiceitt HTTP
+  API OpenAPI plus the error surface documented for the WebSockets API. The
+  API does not use RFC 9457 application/problem+json; HTTP errors are status
+  codes with descriptions, and WebSocket errors arrive as an error event
+  carrying message and an optional request_id.
+problems:
+- status: 403
+  title: Invalid App ID or API key
+  source_operation: openapi/voiceitt-rest-api-openapi-original.json#PublicApiController_loginUserId
+- status: 403
+  title: Invalid App ID, API key or credentials
+  source_operation: openapi/voiceitt-rest-api-openapi-original.json#PublicApiController_loginEmail
+- status: 403
+  title: Invalid App ID or API key (refresh token rejected)
+  source_operation: openapi/voiceitt-rest-api-openapi-original.json#PublicApiController_refreshToken
+websocket_errors:
+- event: error
+  fields:
+  - name: message
+    description: Human-readable error description.
+  - name: request_id
+    description: Present when the error relates to a specific recognize_audio_samples request.
+  docs: https://voiceitt-si-api.readme.io/reference/getting-started-with-your-api-1
+- event: model_missing
+  description: The user has no speech model available for the session.
+- event: model_loading_error
+  description: The speech model failed to load.
+- event: critical_error
+  description: Unrecoverable server-side error; the client should reconnect.
+notes:
+- recognize_audio_samples responses may return a null text field when the segment contained no speech or request processing failed.

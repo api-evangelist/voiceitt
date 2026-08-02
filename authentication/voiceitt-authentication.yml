@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/voiceitt-rest-api-openapi-original.json
+docs: https://voiceitt-si-api.readme.io/reference/getting-started-with-the-voiceitt-rest-api-copy
+summary:
+  types:
+  - http
+  http_schemes:
+  - bearer
+  credential_issuance: App ID + API key issued via the Voiceitt developer portal (developer.voiceitt.com)
+description: >-
+  Voiceitt uses JSON Web Tokens (JWT) for authenticated sessions. Apps obtain
+  tokens by POSTing an App ID and API key to /v1/auth/login/user_id
+  (speaker-independent mode, optionally scoped to a user_id) or App ID, API
+  key, email and password to /v1/auth/login/email (personalized mode — the
+  end user must first enroll and train at https://web.voiceitt.com/). The
+  returned JWT is passed as a Bearer token in the HTTP header of each call to
+  the transcribe endpoint, or in the auth option (token + refresh_token) when
+  initializing a WebSockets (Socket.IO) connection. Tokens carry
+  token_expires_at / refresh_token_expires_at timestamps and are renewed by
+  POSTing the refresh_token to /v1/auth/refresh_token (HTTP) or emitting the
+  refresh_token event (WebSockets).
+schemes:
+- name: bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  token_endpoints:
+  - /v1/auth/login/user_id
+  - /v1/auth/login/email
+  - /v1/auth/refresh_token
+  sources:
+  - openapi/voiceitt-rest-api-openapi-original.json

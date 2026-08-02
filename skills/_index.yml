@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: generated
+source: >-
+  Packaged Agent Skills generated from the harvested Voiceitt OpenAPI
+  (openapi/voiceitt-rest-api-openapi-original.json) and the documented
+  WebSockets event surface (asyncapi/voiceitt-websockets-asyncapi.yml).
+  Every HTTP step is grounded in an operationId verified verbatim in the
+  spec; WebSocket steps use only event names documented by Voiceitt.
+skills:
+- file: voiceitt-transcribe-audio-file.md
+  name: Transcribe an audio file with Voiceitt
+  api: openapi/voiceitt-rest-api-openapi-original.json
+  operations: [PublicApiController_loginUserId, PublicApiController_transcribe, PublicApiController_refreshToken]
+- file: voiceitt-stream-live-captions.md
+  name: Stream live captions over Voiceitt WebSockets
+  api: asyncapi/voiceitt-websockets-asyncapi.yml
+  operations: [PublicApiController_loginUserId, sendSetOptions, sendStreamAudioSamples, sendStreamCompressedAudio, receiveRecognitionEvents, sendDisconnectRequest]

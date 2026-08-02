@@ -1,0 +1,16 @@
+{
+  "provider": "voiceitt",
+  "sources": [
+    "voiceitt-auth-api-openapi.yml",
+    "voiceitt-rec-api-openapi.yml"
+  ],
+  "outputs": [
+    "voiceitt-auth-api-openapi.yml",
+    "voiceitt-rec-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

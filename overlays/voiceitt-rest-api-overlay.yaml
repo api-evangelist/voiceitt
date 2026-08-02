@@ -1,0 +1,50 @@
+# API Evangelist enhancements for the Voiceitt HTTP API.
+# generated: 2026-07-21  method: generated
+# The harvested spec (openapi/voiceitt-rest-api-openapi-original.json, from the
+# ReadMe API registry behind voiceitt-si-api.readme.io) ships with empty
+# servers[], empty tags, and a generic title. This overlay captures our
+# enhancements without mutating the original.
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Voiceitt HTTP API
+  version: 1.0.0
+extends: openapi/voiceitt-rest-api-openapi-original.json
+actions:
+- target: $.info
+  update:
+    title: Voiceitt HTTP API
+    description: >-
+      JWT-authenticated REST API for transcribing audio with Voiceitt's speech
+      recognition for non-standard speech (speaker-independent or personalized
+      models).
+    contact:
+      name: Voiceitt Support
+      email: support@voiceitt.com
+      url: https://www.voiceitt.com/faq
+- target: $
+  update:
+    servers:
+    - url: https://api2.voiceitt.com
+      description: Production (base URL documented in the Voiceitt getting-started guide)
+- target: $.paths['/v1/auth/login/user_id'].post
+  update:
+    tags:
+    - Authentication
+- target: $.paths['/v1/auth/login/email'].post
+  update:
+    tags:
+    - Authentication
+- target: $.paths['/v1/auth/refresh_token'].post
+  update:
+    tags:
+    - Authentication
+- target: $.paths['/v1/rec/transcribe'].post
+  update:
+    tags:
+    - Transcription
+- target: $.info
+  update:
+    x-apievangelist:
+      provider: voiceitt
+      docs: https://voiceitt-si-api.readme.io/
+      harvested: '2026-07-21'

@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/voiceitt-rest-api-openapi-original.json
+description: >-
+  No official Voiceitt MCP server was found (searched the MCP registries, npm,
+  GitHub, and the Voiceitt docs on 2026-07-21). This is a candidate tool list
+  derived from the operations in the Voiceitt HTTP API OpenAPI — one tool per
+  operationId — for a would-be MCP server fronting Voiceitt's inclusive
+  speech-to-text.
+server:
+  name: voiceitt
+  transport: http
+tools:
+- name: login_user_id
+  description: Authenticate an app using App ID and API key, optionally scoped to a user ID (speaker-independent mode).
+  source_operation: openapi/voiceitt-rest-api-openapi-original.json#PublicApiController_loginUserId
+- name: login_email
+  description: Authenticate an app using App ID, API key and end-user credentials (personalized mode).
+  source_operation: openapi/voiceitt-rest-api-openapi-original.json#PublicApiController_loginEmail
+- name: refresh_token
+  description: Exchange a valid refresh token for new access and refresh tokens.
+  source_operation: openapi/voiceitt-rest-api-openapi-original.json#PublicApiController_refreshToken
+- name: transcribe_audio
+  description: Transcribe an audio file with options (inverse text normalization, capitalization, spoken command conversion, profanity filtering).
+  source_operation: openapi/voiceitt-rest-api-openapi-original.json#PublicApiController_transcribe

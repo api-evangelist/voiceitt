@@ -1,0 +1,51 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Compliance claims searched on https://www.voiceitt.com/ (homepage
+  "Compliance" section) on 2026-07-21; technical conformance derived from
+  openapi/voiceitt-rest-api-openapi-original.json and the API docs at
+  https://voiceitt-si-api.readme.io/.
+standards:
+- id: oauth2
+  conforms: false
+  evidence: >-
+    Authentication is a custom JWT login (App ID + API key POSTed to
+    /v1/auth/login/*), not RFC 6749 OAuth 2.0 — the OpenAPI declares only an
+    http bearer (JWT) securityScheme.
+- id: oidc
+  conforms: false
+  evidence: No openIdConnect securityScheme and no /.well-known/openid-configuration on any Voiceitt host (all 404 or SPA fallback).
+- id: jwt
+  conforms: true
+  evidence: bearerFormat JWT in openapi securitySchemes; docs describe JSON Web Tokens with expiry + refresh-token rotation.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error responses are plain descriptions (403 Invalid App ID or API key); no application/problem+json media type in the spec.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on voiceitt.com and api2.voiceitt.com (SPA shell on developer/web hosts).
+- id: websocket-socket-io
+  conforms: true
+  evidence: Real-time API is Socket.IO over WebSockets at https://web.voiceitt.com/socket.io (documented event surface).
+- id: pagination
+  conforms: false
+  evidence: No list endpoints — the API surface is authentication + single-shot transcription; pagination does not apply.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key mechanism documented in the docs or declared in the OpenAPI.
+compliance_claims:
+- id: gdpr
+  claimed: true
+  evidence: GDPR badge in the Compliance section of https://www.voiceitt.com/.
+- id: hipaa
+  claimed: true
+  evidence: HIPAA badge in the Compliance section of https://www.voiceitt.com/.
+- id: iso
+  claimed: true
+  evidence: ISO badge in the Compliance section of https://www.voiceitt.com/ (certification number not published on the page).
+- id: ferpa
+  claimed: true
+  evidence: >-
+    FERPA badge plus a published "FERPA Statement: Student Data and Privacy"
+    PDF linked from https://www.voiceitt.com/
+    (cdn.prod.website-files.com/.../FERPA%20Statement_%20Student%20Data%20and%20Privacy.pdf).

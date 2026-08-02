@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the schemas in openapi/voiceitt-rest-api-openapi-original.json
+  (SignInUserIdDTO, SignInEmailDTO, RefreshTokenDTO, AuthResponseDTO,
+  TranscribeResponseDTO) and the id-reference fields they carry (app_id,
+  api_key, user_id), plus the session/streaming model documented at
+  https://voiceitt-si-api.readme.io/.
+docs: https://voiceitt-si-api.readme.io/
+notation: >-
+  relationships use has_one / has_many / belongs_to with the foreign-key field
+  name; direction is from the entity that owns the reference.
+entities:
+- name: Application
+  description: A developer app registered in the Voiceitt developer portal, identified by app_id and authenticated with api_key.
+- name: User
+  description: An end user — anonymous (user_id, max 36 chars, speaker-independent) or enrolled with email/password for a personalized speech model trained at web.voiceitt.com.
+- name: AuthSession
+  description: A JWT session — token + refresh_token with expiry timestamps (token_expires_at, refresh_token_expires_at).
+- name: SpeechModel
+  description: The recognition model backing a session — speaker-independent, or personalized per enrolled user (WebSocket lifecycle events model_loading / model_ready / model_missing).
+- name: Transcription
+  description: A recognition result — HTTP transcribe returns text; streaming returns recognition / partial_recognition segments with segment_id, start_time, end_time.
+relationships:
+- {from: User, to: Application, kind: belongs_to, via: app_id}
+- {from: AuthSession, to: Application, kind: belongs_to, via: app_id}
+- {from: AuthSession, to: User, kind: belongs_to, via: user_id}
+- {from: Application, to: AuthSession, kind: has_many, via: app_id}
+- {from: User, to: SpeechModel, kind: has_one, via: user_id}
+- {from: AuthSession, to: Transcription, kind: has_many, via: token}
+- {from: Transcription, to: User, kind: belongs_to, via: user_id}

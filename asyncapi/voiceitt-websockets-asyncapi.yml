@@ -1,0 +1,171 @@
+# generated: 2026-07-21  method: derived
+# source: https://voiceitt-si-api.readme.io/reference/getting-started-with-your-api-1
+# Voiceitt publishes no AsyncAPI document; this spec is derived faithfully from
+# the documented Socket.IO event surface (event names, payload fields, and
+# lifecycle described in the WebSockets API reference). Nothing here is
+# invented — every message/event name and field is documented by Voiceitt.
+asyncapi: 3.0.0
+info:
+  title: Voiceitt WebSockets API
+  version: '1.0'
+  description: >-
+    Socket.IO WebSockets API for real-time speech recognition of non-standard
+    speech. Clients authenticate with a JWT (token + refresh_token in the
+    Socket.IO auth option, obtained from the Voiceitt HTTP API), configure the
+    session with set_options, then send pre-segmented audio
+    (recognize_audio_samples) or stream continuous audio
+    (stream_audio_samples / stream_compressed_audio), receiving recognition
+    and partial_recognition events. PCM input must be single-channel 16,000 Hz
+    (int16, int32, float32 or float64); the recommended streaming chunk is
+    3200 samples. Compressed formats such as mp4 and ogg are supported via
+    stream_compressed_audio.
+  externalDocs:
+    url: https://voiceitt-si-api.readme.io/reference/getting-started-with-your-api-1
+defaultContentType: application/octet-stream
+servers:
+  production:
+    host: web.voiceitt.com
+    protocol: wss
+    pathname: /socket.io
+    description: Socket.IO endpoint; JWT passed in the auth option (token, refresh_token).
+channels:
+  session:
+    address: /socket.io
+    description: Single Socket.IO session channel carrying all documented events.
+    messages:
+      set_options:
+        name: set_options
+        title: Configure a recognition session
+        summary: >-
+          Set recognition options (repeatable at any point after connecting):
+          run_itn, run_capitalization, run_spoken_command_conversion,
+          filter_profanities, streaming_vad_min_silence_length.
+      refresh_token:
+        name: refresh_token
+        title: Refresh authentication token
+        summary: Refresh the session JWT before expiry.
+      disconnect_request:
+        name: disconnect_request
+        title: Request to close user session
+      recognize_audio_samples:
+        name: recognize_audio_samples
+        title: Transcribe pre-segmented speech
+        summary: >-
+          Audio samples serialized as bytes plus a sample-type string (int16,
+          int32, float32, float64). Server replies immediately with
+          request_received (request_id), then a recognition event whose text
+          may be null when the segment contained no speech.
+      stream_audio_samples:
+        name: stream_audio_samples
+        title: Transcribe contiguous chunks of PCM audio
+        summary: >-
+          Continuous PCM streaming (recommended 3200-sample chunks); responses
+          are chronologically ordered recognition and partial_recognition
+          events.
+      stream_compressed_audio:
+        name: stream_compressed_audio
+        title: Transcribe contiguous chunks of non-PCM audio
+        summary: Compressed audio (e.g. mp4, ogg) with a MIME type; same response events as stream_audio_samples.
+      connection_ready:
+        name: connection_ready
+        title: Server ready to accept recognition requests
+      model_loading:
+        name: model_loading
+        title: Speech model is loading
+      model_ready:
+        name: model_ready
+        title: Speech model loaded
+      model_missing:
+        name: model_missing
+        title: No speech model available for the user
+      model_loading_error:
+        name: model_loading_error
+        title: Speech model failed to load
+      critical_error:
+        name: critical_error
+        title: Unrecoverable server error
+      request_received:
+        name: request_received
+        title: Acknowledgement of recognize_audio_samples
+        summary: 'Payload: request_id (str).'
+      recognition:
+        name: recognition
+        title: Final recognition result
+        summary: 'Fields: text, segment_id, start_time, end_time (streaming) or text, request_id (pre-segmented).'
+      partial_recognition:
+        name: partial_recognition
+        title: Partial recognition result
+        summary: 'Fields: text (stable output), unstable_text (may change), segment_id.'
+      error:
+        name: error
+        title: Server error event
+        summary: 'Fields: message, optional request_id.'
+      pre_shutdown:
+        name: pre_shutdown
+        title: Maintenance pre-shutdown notification
+      shutdown:
+        name: shutdown
+        title: Maintenance shutdown notification
+      reset_alb_cookies:
+        name: reset_alb_cookies
+        title: Load-balancer cookie reset response
+operations:
+  sendSetOptions:
+    action: send
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/set_options'
+  sendRefreshToken:
+    action: send
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/refresh_token'
+  sendDisconnectRequest:
+    action: send
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/disconnect_request'
+  sendRecognizeAudioSamples:
+    action: send
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/recognize_audio_samples'
+  sendStreamAudioSamples:
+    action: send
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/stream_audio_samples'
+  sendStreamCompressedAudio:
+    action: send
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/stream_compressed_audio'
+  receiveRecognitionEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/recognition'
+    - $ref: '#/channels/session/messages/partial_recognition'
+    - $ref: '#/channels/session/messages/request_received'
+  receiveLifecycleEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/session'
+    messages:
+    - $ref: '#/channels/session/messages/connection_ready'
+    - $ref: '#/channels/session/messages/model_loading'
+    - $ref: '#/channels/session/messages/model_ready'
+    - $ref: '#/channels/session/messages/model_missing'
+    - $ref: '#/channels/session/messages/model_loading_error'
+    - $ref: '#/channels/session/messages/critical_error'
+    - $ref: '#/channels/session/messages/error'
+    - $ref: '#/channels/session/messages/pre_shutdown'
+    - $ref: '#/channels/session/messages/shutdown'
+    - $ref: '#/channels/session/messages/reset_alb_cookies'

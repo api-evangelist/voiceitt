@@ -1,0 +1,71 @@
+generated: '2026-07-21'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface for every Voiceitt
+  base host (apis.yml baseURLs, the marketing site, and the developer portal).
+  Status is the HTTP code observed at fetch time. No real well-known documents
+  were found: voiceitt.com, www.voiceitt.com and api2.voiceitt.com return 404
+  for every path, while developer.voiceitt.com and web.voiceitt.com are
+  single-page apps that answer 200 with the text/html SPA shell for every
+  /.well-known/ path — recorded as spa-fallback, not saved as documents.
+hosts:
+- host: https://voiceitt.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://api2.voiceitt.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://developer.voiceitt.com
+  spa_fallback: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: text/html SPA shell, not a real security.txt — not saved
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
+  - path: /.well-known/api-catalog
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
+- host: https://web.voiceitt.com
+  spa_fallback: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: text/html SPA shell, not a real security.txt — not saved
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
+  - path: /.well-known/api-catalog
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: text/html SPA shell, not a real document — not saved
