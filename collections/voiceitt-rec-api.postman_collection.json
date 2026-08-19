@@ -1,0 +1,163 @@
+{
+  "item": [
+    {
+      "id": "f25d1cb6-b160-4e76-a08b-cd9bfa7ee0f9",
+      "name": "Rec",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6930034e-9968-46fb-a46d-e64686365ae7",
+          "name": "Transcribe audio file",
+          "request": {
+            "name": "Transcribe audio file",
+            "description": {
+              "content": "Accepts audio file along with transcription options in JSON format. The server processes the audio and returns a transcription result",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "rec",
+                "transcribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "audio",
+                  "type": "file",
+                  "description": "(Required) Audio file to be transcribed"
+                },
+                {
+                  "key": "options",
+                  "type": "file",
+                  "description": "(Required) JSON file containing transcription options. Example: \n          {\n            run_itn: true,\n            run_capitalization: true,\n            run_spoken_command_conversion: false,\n            filter_profanities: true,\n            save_audio: false\n          }"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ac132151-5324-42fb-95ee-645e40f4f2c6",
+              "name": "Transcribed result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "rec",
+                    "transcribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Audio file to be transcribed",
+                        "type": "text/plain"
+                      },
+                      "key": "audio",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) JSON file containing transcription options. Example: \n          {\n            run_itn: true,\n            run_capitalization: true,\n            run_spoken_command_conversion: false,\n            filter_profanities: true,\n            save_audio: false\n          }",
+                        "type": "text/plain"
+                      },
+                      "key": "options",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d937007c-ff2e-4d3b-80ca-4a3bf75ddafa",
+    "name": "REST Auth Rec API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

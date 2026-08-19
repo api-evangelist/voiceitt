@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "REST Auth Rec API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rec",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Transcribe audio file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/rec/transcribe",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "options",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "audio",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Accepts audio file along with transcription options in JSON format. The server processes the audio and returns a transcription result"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
