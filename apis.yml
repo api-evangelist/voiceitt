@@ -67,6 +67,8 @@ apis:
   humanURL: https://voiceitt-si-api.readme.io/
   baseURL: https://api2.voiceitt.com
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
