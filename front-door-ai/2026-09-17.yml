@@ -1,0 +1,29 @@
+# Front Door AI Index — voiceitt — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: voiceitt
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: voiceitt.com
+  final_host: voiceitt.com
+  ownership: own
+  owner: voiceitt
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 12
+  host_score: 12
+  density: 6.54
+  words: 1836
+  tiers:
+    agentic: 1
+    core: 9
+    model: 2
+  ambiguous: 4
+  top_terms:
+    AI: 9
+    smart: 3
+    ChatGPT: 2
+    automation: 1
+    virtual assistant: 1

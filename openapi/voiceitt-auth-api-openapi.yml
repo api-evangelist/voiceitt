@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: REST Auth API
   description: ''
@@ -85,6 +85,33 @@ paths:
       - bearer: []
 components:
   schemas:
+    RefreshTokenDTO:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+      required:
+      - refresh_token
+    AuthResponseDTO:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT or access token issued upon successful authentication
+        token_expires_at:
+          type: number
+          description: Expiration timestamp of the access token in milliseconds since Unix epoch
+        refresh_token:
+          type: string
+          description: Refresh token used to obtain a new tokens
+        refresh_token_expires_at:
+          type: number
+          description: Expiration timestamp of the refresh token in milliseconds since Unix epoch
+      required:
+      - token
+      - token_expires_at
+      - refresh_token
+      - refresh_token_expires_at
     SignInEmailDTO:
       type: object
       properties:
@@ -118,33 +145,6 @@ components:
       required:
       - app_id
       - api_key
-    RefreshTokenDTO:
-      type: object
-      properties:
-        refresh_token:
-          type: string
-      required:
-      - refresh_token
-    AuthResponseDTO:
-      type: object
-      properties:
-        token:
-          type: string
-          description: JWT or access token issued upon successful authentication
-        token_expires_at:
-          type: number
-          description: Expiration timestamp of the access token in milliseconds since Unix epoch
-        refresh_token:
-          type: string
-          description: Refresh token used to obtain a new tokens
-        refresh_token_expires_at:
-          type: number
-          description: Expiration timestamp of the refresh token in milliseconds since Unix epoch
-      required:
-      - token
-      - token_expires_at
-      - refresh_token
-      - refresh_token_expires_at
   securitySchemes:
     bearer:
       scheme: bearer

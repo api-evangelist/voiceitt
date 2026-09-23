@@ -1,8 +1,7 @@
 {
   "provider": "voiceitt",
   "sources": [
-    "voiceitt-auth-api-openapi.yml",
-    "voiceitt-rec-api-openapi.yml"
+    "_original/voiceitt-rest-api-openapi-original.json"
   ],
   "outputs": [
     "voiceitt-auth-api-openapi.yml",
@@ -11,6 +10,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "voiceitt-rest-api-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "voiceitt-rest-api-openapi-original.json: tagged paths POST /v1/auth/login/user_id -> Auth",
+    "voiceitt-rest-api-openapi-original.json: tagged paths POST /v1/auth/login/email -> Auth",
+    "voiceitt-rest-api-openapi-original.json: tagged paths POST /v1/auth/refresh_token -> Auth",
+    "voiceitt-rest-api-openapi-original.json: tagged paths POST /v1/rec/transcribe -> Rec",
+    "voiceitt-rest-api-openapi-original.json: declared missing tag: Auth",
+    "voiceitt-rest-api-openapi-original.json: declared missing tag: Rec",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "voiceitt-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "voiceitt-rec-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
