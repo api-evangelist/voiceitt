@@ -85,13 +85,6 @@ paths:
       - bearer: []
 components:
   schemas:
-    RefreshTokenDTO:
-      type: object
-      properties:
-        refresh_token:
-          type: string
-      required:
-      - refresh_token
     SignInEmailDTO:
       type: object
       properties:
@@ -110,21 +103,13 @@ components:
       - api_key
       - email
       - password
-    SignInUserIdDTO:
+    RefreshTokenDTO:
       type: object
       properties:
-        app_id:
+        refresh_token:
           type: string
-          description: Application ID, typically obtained from the developer portal
-        api_key:
-          type: string
-          description: API key, typically obtained from the developer portal
-        user_id:
-          type: string
-          maxLength: 36
       required:
-      - app_id
-      - api_key
+      - refresh_token
     AuthResponseDTO:
       type: object
       properties:
@@ -145,6 +130,21 @@ components:
       - token_expires_at
       - refresh_token
       - refresh_token_expires_at
+    SignInUserIdDTO:
+      type: object
+      properties:
+        app_id:
+          type: string
+          description: Application ID, typically obtained from the developer portal
+        api_key:
+          type: string
+          description: API key, typically obtained from the developer portal
+        user_id:
+          type: string
+          maxLength: 36
+      required:
+      - app_id
+      - api_key
   securitySchemes:
     bearer:
       scheme: bearer
